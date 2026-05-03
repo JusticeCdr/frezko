@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frezko</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22><path fill=%22%23f97316%22 d=%22M256 0c-17.7 0-32 14.3-32 32V66.8C119.8 71.2 32 153.2 32 256c0 17.7 14.3 32 32 32h66.8C135.2 392.2 217.2 480 320 480c17.7 0 32-14.3 32-32V381.2C456.8 376.8 544 294.8 544 192c0-17.7-14.3-32-32-32H445.2C440.8 55.8 358.8-32 256-32zM212.8 136h86.4c6.6 0 12 5.4 12 12v86.4c0 6.6-5.4 12-12 12h-86.4c-6.6 0-12-5.4-12-12v-86.4c0-6.6 5.4-12 12-12zm-96 96h86.4c6.6 0 12 5.4 12 12v86.4c0 6.6-5.4 12-12 12h-86.4c-6.6 0-12-5.4-12-12v-86.4c0-6.6 5.4-12 12-12zm230.4 0h86.4c6.6 0 12 5.4 12 12v86.4c0 6.6-5.4 12-12 12h-86.4c-6.6 0-12-5.4-12-12v-86.4c0-6.6 5.4-12 12-12z%22/></svg>">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        freshk: {
+                            light: '#f0fdf4',   // Och yashil
+                            DEFAULT: '#166534', // Asosiy yashil (Logodagi kabi)
+                            dark: '#14532d',    // To'q yashil
+                            orange: '#f97316',  // To'q sariq (Pitsa rangi)
+                            yellow: '#facc15'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                        display: ['Oswald', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        
+        @keyframes fade-in-up {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up { animation: fade-in-up 0.5s ease-out forwards; }
+
+        @keyframes pulse-orange {
+            0% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(249, 115, 22, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
+        }
+        .pulse-btn { animation: pulse-orange 2s infinite; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(22, 101, 52, 0.1);
+        }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #f97316;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Filter button styles */
+        .filter-btn.active {
+            background-color: #166534;
+            color: white;
+            border-color: #166534;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased overflow-x-hidden font-sans">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- LOGO -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="font-display text-3xl md:text-4xl font-bold text-freshk tracking-wide flex items-center">
+                        Frezko<i class="fa-solid fa-pizza-slice text-freshk-orange transform -rotate-12 ml-1 text-2xl md:text-3xl"></i>
+                    </span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-gray-800 hover:text-freshk-orange font-bold transition-colors">Asosiy</a>
+                    <a href="#ai-advisor" class="text-gray-800 hover:text-freshk-orange font-bold transition-colors">AI Maslahat</a>
+                    <a href="#menu" class="text-gray-800 hover:text-freshk-orange font-bold transition-colors">Menyu</a>
+                    <a href="#contact" class="bg-freshk-orange text-white px-6 py-2.5 rounded-full hover:bg-orange-600 transition-colors shadow-lg font-bold">Buyurtma</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-800 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-xl absolute w-full pb-4">
+            <div class="px-4 pt-4 space-y-3 text-center">
+                <a href="#home" class="block px-3 py-2 text-gray-800 font-bold hover:text-freshk-orange bg-gray-50 rounded-lg">Asosiy</a>
+                <a href="#ai-advisor" class="block px-3 py-2 text-gray-800 font-bold hover:text-freshk-orange bg-gray-50 rounded-lg">AI Maslahat</a>
+                <a href="#menu" class="block px-3 py-2 text-gray-800 font-bold hover:text-freshk-orange bg-gray-50 rounded-lg">Menyu</a>
+                <a href="#contact" class="block px-3 py-3 mt-4 text-white bg-freshk-orange rounded-lg font-bold shadow-md">Buyurtma berish</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-freshk-light">
+        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-freshk-orange rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float"></div>
+        <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-freshk rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float" style="animation-delay: 2s;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="w-full lg:w-1/2 text-center lg:text-left animate-fade-in-up">
+                    <span class="bg-orange-100 text-freshk-orange font-bold px-4 py-1.5 rounded-full text-sm uppercase tracking-wider mb-6 inline-block border border-orange-200">
+                        <i class="fa-solid fa-fire text-red-500 mr-1"></i> Eng mazali tanlov
+                    </span>
+                    <h1 class="text-5xl lg:text-7xl font-display font-bold text-gray-900 leading-tight mb-6 uppercase tracking-tight">
+                        Haqiqiy <span class="text-freshk-orange">Ta'm</span> <br> <span class="text-freshk">Sizni kutmoqda</span>
+                    </h1>
+                    <p class="text-gray-600 text-lg mb-8 font-medium">
+                        Qaynoq pitsalar, qarsildoq fast-foodlar, shirinliklar va salqin ichimliklar. 
+                        Bugun nimani tatib ko'rmoqchisiz? Sun'iy intellektdan so'rang!
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#menu" class="bg-freshk text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-freshk-dark transition-all transform hover:-translate-y-1 text-lg text-center">
+                            Menyuni ko'rish
+                        </a>
+                        <a href="#ai-advisor" class="bg-freshk-orange text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-orange-600 transition-all transform hover:-translate-y-1 pulse-btn flex items-center justify-center gap-2 text-lg">
+                            <i class="fa-solid fa-robot"></i> AI Maslahat
+                        </a>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/2 relative mt-10 lg:mt-0">
+                    <div class="relative w-full max-w-lg mx-auto animate-float">
+                        <!-- Hero Image: A great Pizza image -->
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mazali Pitsa" class="rounded-full shadow-2xl object-cover w-full h-[400px] sm:h-[500px] border-[12px] border-white relative z-10">
+                        
+                        <!-- Floating badges -->
+                        <div class="absolute top-10 -left-4 md:-left-10 bg-white px-6 py-3 rounded-2xl shadow-xl z-20 flex items-center gap-3 animate-bounce" style="animation-duration: 3s;">
+                            <i class="fa-solid fa-pizza-slice text-freshk-orange text-2xl"></i>
+                            <div>
+                                <p class="text-xs text-gray-500 font-bold uppercase">Pizza</p>
+                                <p class="font-display font-bold text-gray-900 text-lg">Haqiqiy ta'm</p>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-20 -right-4 md:-right-8 bg-white px-6 py-3 rounded-2xl shadow-xl z-20 flex items-center gap-3 animate-bounce" style="animation-duration: 4s;">
+                            <i class="fa-solid fa-star text-yellow-400 text-2xl"></i>
+                            <div>
+                                <p class="text-xs text-gray-500 font-bold uppercase">Reyting</p>
+                                <p class="font-display font-bold text-gray-900 text-lg">5.0 / 5.0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Advisor Section -->
+    <section id="ai-advisor" class="py-24 bg-white relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-10">
+                <div class="inline-block bg-orange-100 p-4 rounded-full mb-4">
+                    <i class="fa-solid fa-wand-magic-sparkles text-4xl text-freshk-orange"></i>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 uppercase">AI Yordamchi</h2>
+                <p class="text-gray-600 font-medium text-lg">Nima yegingiz kelyapti? Yozing, AI sizga menyumizdagi eng mos taomni topib beradi!</p>
+            </div>
+
+            <div class="glass-card rounded-[2rem] p-6 md:p-10 shadow-2xl relative overflow-hidden bg-gray-50 border-2 border-gray-100">
+                <!-- Search Box -->
+                <div class="flex flex-col md:flex-row gap-4 mb-6">
+                    <div class="relative flex-grow">
+                        <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-comment-dots text-gray-400 text-xl"></i>
+                        </div>
+                        <input type="text" id="ai-input" placeholder="Masalan: Issiqqina pitsa, go'shtli fastfud yoki shirinlik..." class="w-full pl-14 pr-4 py-5 rounded-2xl border-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-freshk-orange text-lg transition-all font-medium bg-white">
+                    </div>
+                    <button onclick="getAIRecommendation()" class="bg-freshk text-white px-8 py-5 rounded-2xl font-bold hover:bg-freshk-dark transition-colors flex items-center justify-center gap-3 shadow-lg flex-shrink-0 text-lg w-full md:w-auto">
+                        <i class="fa-solid fa-magnifying-glass"></i> Topish
+                    </button>
+                </div>
+
+                <!-- Error Message -->
+                <p id="ai-error" class="text-red-500 text-center hidden mb-4 font-bold"><i class="fa-solid fa-circle-exclamation"></i> Iltimos, xohishingizni yozing!</p>
+
+                <!-- Loading State -->
+                <div id="ai-loading" class="hidden flex flex-col items-center justify-center py-10">
+                    <div class="loader mb-4"></div>
+                    <p class="text-freshk-orange font-bold text-lg animate-pulse">Menyudan qidirilmoqda...</p>
+                </div>
+
+                <!-- AI Result Area -->
+                <div id="ai-result" class="hidden flex flex-col md:flex-row items-center gap-8 bg-white p-6 md:p-8 rounded-3xl shadow-md border border-gray-100 mt-6">
+                    <div class="w-full md:w-2/5 relative overflow-hidden rounded-2xl shadow-inner group">
+                        <img id="ai-img" src="" alt="Tavsiya" class="w-full h-60 object-cover transform transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute top-3 right-3 bg-freshk-orange text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg uppercase tracking-wider">
+                            <i class="fa-solid fa-star text-yellow-300 mr-1"></i> Zo'r tanlov
+                        </div>
+                    </div>
+                    <div class="w-full md:w-3/5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 id="ai-title" class="text-3xl font-display font-bold text-gray-900 uppercase">Taom nomi</h3>
+                            <span id="ai-price" class="bg-green-100 text-freshk font-bold px-3 py-1 rounded-lg text-lg whitespace-nowrap">0 so'm</span>
+                        </div>
+                        
+                        <p id="ai-desc" class="text-gray-600 text-lg leading-relaxed mb-6 font-medium mt-4">
+                            Tavsiya matni...
+                        </p>
+                        
+                        <a href="#contact" class="inline-flex items-center justify-center gap-2 bg-freshk text-white w-full md:w-auto px-8 py-3.5 rounded-xl hover:bg-freshk-dark transition-colors font-bold text-lg shadow-md hover:shadow-lg">
+                            <i class="fa-brands fa-telegram"></i> Buyurtma berish
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-freshk-orange font-bold tracking-wider uppercase text-sm mb-2 block"><i class="fa-solid fa-utensils"></i> Bizning Menyu</span>
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-gray-900 uppercase">Nima buyurtma qilasiz?</h2>
+            </div>
+            
+            <!-- Category Filters -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12" id="category-filters">
+                <button class="filter-btn active px-6 py-2.5 rounded-full font-bold border-2 border-gray-200 text-gray-600 hover:border-freshk hover:text-freshk transition-all" data-filter="barchasi">Barchasi</button>
+                <button class="filter-btn px-6 py-2.5 rounded-full font-bold border-2 border-gray-200 text-gray-600 hover:border-freshk hover:text-freshk transition-all" data-filter="fastfood">Fast Food & Pizza</button>
+                <button class="filter-btn px-6 py-2.5 rounded-full font-bold border-2 border-gray-200 text-gray-600 hover:border-freshk hover:text-freshk transition-all" data-filter="milliy">Milliy & Mangal</button>
+                <button class="filter-btn px-6 py-2.5 rounded-full font-bold border-2 border-gray-200 text-gray-600 hover:border-freshk hover:text-freshk transition-all" data-filter="ichimlik">Ichimliklar</button>
+                <button class="filter-btn px-6 py-2.5 rounded-full font-bold border-2 border-gray-200 text-gray-600 hover:border-freshk hover:text-freshk transition-all" data-filter="shirinlik">Shirinliklar</button>
+            </div>
+
+            <!-- Menu Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="menu-grid">
+                <!-- Javascript will populate this -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact Section -->
+    <footer id="contact" class="bg-gray-900 text-white relative pt-20 pb-10 border-t-8 border-freshk-orange mt-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left mb-16">
+                <!-- Brand Info -->
+                <div class="flex flex-col items-center md:items-start">
+                    <span class="font-display text-4xl font-bold text-white tracking-wide flex items-center mb-6">
+                        Frezko<i class="fa-solid fa-pizza-slice text-freshk-orange transform -rotate-12 ml-1 text-3xl"></i>
+                    </span>
+                    <p class="text-gray-400 leading-relaxed font-medium text-lg">Eng zo'r pitsalar va tezpishar taomlar. Hoziroq buyurtma bering va mazzali ta'mdan bahra oling!</p>
+                </div>
+
+                <!-- Navigation -->
+                <div class="flex flex-col items-center md:items-start">
+                    <h4 class="text-2xl font-display font-bold mb-6 text-white uppercase tracking-wider">Sahifalar</h4>
+                    <ul class="space-y-4 font-bold text-gray-400">
+                        <li><a href="#home" class="hover:text-freshk-orange transition-colors flex items-center gap-2"><i class="fa-solid fa-angle-right"></i> Asosiy</a></li>
+                        <li><a href="#ai-advisor" class="hover:text-freshk-orange transition-colors flex items-center gap-2"><i class="fa-solid fa-angle-right"></i> AI Maslahatchi</a></li>
+                        <li><a href="#menu" class="hover:text-freshk-orange transition-colors flex items-center gap-2"><i class="fa-solid fa-angle-right"></i> To'liq Menyu</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Links (User configurable) -->
+                <div class="flex flex-col items-center md:items-start w-full">
+                    <h4 class="text-2xl font-display font-bold mb-6 text-white uppercase tracking-wider">Bog'lanish & Buyurtma</h4>
+                    
+                    <!-- 1. TELEGRAM BOT LINK -->
+                    <a href="https://t.me/kq_food_bot" target="_blank" class="w-full bg-[#0088cc] text-white px-6 py-4 rounded-xl hover:bg-blue-500 transition-all flex items-center justify-center gap-3 mb-4 font-bold text-lg shadow-lg transform hover:-translate-y-1">
+                        <i class="fa-brands fa-telegram text-2xl"></i> Bot orqali buyurtma
+                    </a>
+                    
+                    <!-- 2. TELEFON RAQAM -->
+                    <a href="tel:+998932200777" class="w-full bg-gray-800 text-white px-6 py-4 rounded-xl hover:bg-gray-700 transition-all flex items-center justify-center gap-3 mb-4 font-bold text-lg border border-gray-700 hover:border-freshk-orange">
+                        <i class="fa-solid fa-phone text-freshk-orange"></i> +998 93 220 07 77
+                    </a>
+
+                    <!-- 3. INSTAGRAM LINK -->
+                    <a href="https://www.instagram.com/frezko_kattakurgan?igsh=MTZnM2NtaDYzcnJmaA==" target="_blank" class="w-full bg-gradient-to-r from-[#f09433] via-[#dc2743] to-[#bc1888] text-white px-6 py-4 rounded-xl hover:opacity-90 transition-all flex items-center justify-center gap-3 font-bold text-lg shadow-lg transform hover:-translate-y-1">
+                        <i class="fa-brands fa-instagram text-2xl"></i> Instagram sahifamiz
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 font-medium">
+                <p>&copy; 2026 Frezko🍕. Barcha huquqlar himoyalangan.</p>
+                <p>Ish vaqti: 10:00 - 02:00</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Navbar Scroll Effect ---
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-md');
+                nav.classList.remove('shadow-sm');
+            } else {
+                nav.classList.remove('shadow-md');
+                nav.classList.add('shadow-sm');
+            }
+        });
+
+        // --- Mobile Menu Toggle ---
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // --- MENU DATA (To'liq rasmlardagi menyu) ---
+        const menuData = [
+            // Fast Food & Pizza
+            {
+                id: 1, name: "Pizza", category: "fastfood", price: "45.000 so'mdan",
+                desc: "<b>O'lchamlari:</b> 26sm - 45.000, 33sm - 80.000, 40sm - 110.000, 45sm - 150.000, 50sm - 180.000.<br><b>Tarkibi:</b> Sous, danar go'shti, tovuq go'shti, qo'ziqorin, dudlangan kolbasa, pishirilgan kolbasa, mosarella pishlog'i.",
+                img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                keywords: ["pitsa", "pizza", "xamir", "kolbasa", "pishloq", "fast food"]
+            },
+            {
+                id: 2, name: "Lavash", category: "fastfood", price: "25.000 so'mdan",
+                desc: "<b>Tandir Lavash:</b> 35.000, 40.000, 45.000 <br><b>Tovuqli Lavash:</b> 25.000, 30.000",
+                img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                keywords: ["lavash", "go'shtli", "tovuqli", "fast food", "shaurma", "o'ram"]
+            },
+            {
+                id: 3, name: "Danar", category: "fastfood", price: "25.000 so'mdan",
+                desc: "<b>Go'shtli Danar:</b> 35.000, 40.000, 45.000 <br><b>Tovuqli Danar:</b> 25.000, 30.000",
+                img: "https://images.unsplash.com/photo-1585238342024-78d387f4a707?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                keywords: ["danar", "donar", "go'shtli", "tovuqli", "fast food"]
+            },
+            {
+                id: 4, name: "Xot Dog", category: "fastfood", price: "10.000 so'mdan",
+                desc: "<b>Narxlari:</b> 10.000, 15.000, 20.000 <br><b>Tarkibi:</b> Non, pomidorli sous, sabzi salat, pomidor, bodring, ketchup, mayonez, sosiska gril.",
+                img: "https://images.unsplash.com/photo-1619740455993-9e612b1af08a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                keywords: ["xot dog", "hot dog", "sosiska", "fast food"]
+            },
+            {
+                id: 5, name: "Burger", category: "fastfood", price: "30.000 so'mdan",
+                desc: "<b>Gamburger:</b> 30.000 <br><b>Chizburger:</b> 35.000",
+                img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                keywords: ["burger", "gamburger", "chizburger", "go'sht", "fast food"]
+            },
+            {
+                id: 6, name: "KFC", category: "fastfood", price: "85.000 so'm",
+                desc: "<b>1 KG</b> - 85.000 so'm",
+                img: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                keywords: ["kfc", "tovuq", "qarsildoq", "qovurilgan tovuq", "fast food"]
+            },
+            {
+                id: 7, name: "Fri", category: "fastfood", price: "15.000 so'm",
+                desc: "Mazali kartoshka fri - 15.000 so'm.",
+                img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                keywords: ["fri", "kartoshka", "fast food", "qarsildoq"]
+            },
+            
+            // Milliy va Mangal
+            {
+                id: 8, name: "Shashlik", category: "milliy", price: "15.000 so'mdan",
+                desc: "<b>Qiyma:</b> 22.000 <br><b>Kuskovoy:</b> 25.000 <br><b>Tovuqli:</b> 15.000",
+                img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                keywords: ["shashlik", "kabob", "qiyma", "kuskovoy", "go'sht", "tovuq shashlik", "mangal"]
+            },
+            {
+                id: 9, name: "Chupchima", category: "milliy", price: "55.000 so'm",
+                desc: "<b>1 portsiya</b> - 55.000 so'm",
+                img: "https://images.unsplash.com/photo-1593504049359-74330189a345?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                keywords: ["chupchima", "go'sht", "milliy", "maxsus"]
+            },
+            {
+                id: 10, name: "Tovuq Oyoqchalari", category: "milliy", price: "65.000 so'm",
+                desc: "<b>1 KG</b> - 65.000 so'm",
+                img: "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                keywords: ["tovuq", "oyoqcha", "pechda pishgan", "go'sht"]
+            },
+
+            // Shirinliklar
+            {
+                id: 11, name: "San Sebastiyan", category: "shirinlik", price: "35.000 so'm",
+                desc: "Haqiqiy Ispancha pishloqli tort. Og'izda eriydi.",
+                img: "https://images.unsplash.com/photo-1602351447937-745cb720612f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                keywords: ["san sebastiyan", "tort", "shirinlik", "pishloq", "desert"]
+            },
+            {
+                id: 12, name: "Chizkeyk", category: "shirinlik", price: "27.000 so'm",
+                desc: "Mevali va mazali klassik chizkeyk shirinligi.",
+                img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                keywords: ["chizkeyk", "shirinlik", "tort", "desert", "mevali"]
+            },
+            {
+                id: 13, name: "Muzqaymoq", category: "shirinlik", price: "10.000 so'mdan",
+                desc: "<b>Narxlari:</b> 10.000, 15.000 so'm",
+                img: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                keywords: ["muzqaymoq", "shirinlik", "salqin", "muz", "morojnoe"]
+            },
+
+            // Ichimliklar
+            {
+                id: 14, name: "Moxito", category: "ichimlik", price: "15.000 so'mdan",
+                desc: "<b>Moxito 0.5L:</b> 15.000 <br><b>Moxito 0.7L:</b> 20.000 <br> (malina, klubnika, kivi, tarxun, apelsin, moxito, moxito+klubnika, limon, mango, anor, tarvuz, shaftoli)",
+                img: "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                keywords: ["moxito", "ichimlik", "suv", "salqin", "mevali", "tarxun"]
+            },
+            {
+                id: 15, name: "Sutli Kokteyl", category: "ichimlik", price: "10.000 so'mdan",
+                desc: "<b>Sutli kokteyl 0.5L:</b> 10.000 <br><b>Mevali va shokolad kokteyl</b> (kivi, apelsin, klubnika, malina, banan): 0.5L - 13.000, 0.7L - 15.000",
+                img: "https://images.unsplash.com/photo-1553177595-4de2bb0842b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                keywords: ["kokteyl", "sutli", "shokoladli", "ichimlik", "banan", "klubnika"]
+            },
+            {
+                id: 16, name: "Muz", category: "ichimlik", price: "5.000 so'm",
+                desc: "Ichimliklar uchun toza muz (5.000 so'm).",
+                img: "https://images.unsplash.com/photo-1556881286-fc6915169721?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                keywords: ["muz", "salqin"]
+            }
+        ];
+
+        // --- Render Menu Grid ---
+        const menuGrid = document.getElementById('menu-grid');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        function renderMenu(categoryFilter = 'barchasi') {
+            menuGrid.innerHTML = '';
+            
+            const filteredData = categoryFilter === 'barchasi' 
+                ? menuData 
+                : menuData.filter(item => item.category === categoryFilter);
+
+            filteredData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-3xl shadow-md border border-gray-100 overflow-hidden group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col";
+                card.innerHTML = `
+                    <div class="relative overflow-hidden h-60">
+                        <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg shadow font-bold text-freshk-orange text-sm">
+                            ${item.price}
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-display font-bold text-gray-900 mb-2 uppercase tracking-wide">${item.name}</h3>
+                        <p class="text-gray-500 font-medium text-sm mb-6 flex-grow leading-relaxed">${item.desc}</p>
+                        <a href="#contact" class="w-full bg-gray-50 hover:bg-freshk hover:text-white text-gray-800 font-bold py-3 rounded-xl transition-colors text-center border border-gray-200 hover:border-freshk">
+                            Buyurtma berish
+                        </a>
+                    </div>
+                `;
+                menuGrid.appendChild(card);
+            });
+        }
+
+        // Initialize Menu
+        renderMenu();
+
+        // Menu Filters Logic
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-freshk', 'text-white', 'border-freshk');
+                    b.classList.add('text-gray-600', 'border-gray-200');
+                });
+                
+                // Add active class to clicked
+                btn.classList.add('active', 'bg-freshk', 'text-white', 'border-freshk');
+                btn.classList.remove('text-gray-600', 'border-gray-200');
+                
+                // Filter
+                renderMenu(btn.dataset.filter);
+            });
+        });
+
+        // --- AI Advisor Logic ---
+        function getAIRecommendation() {
+            const inputVal = document.getElementById('ai-input').value.toLowerCase().trim();
+            const resultDiv = document.getElementById('ai-result');
+            const loadingDiv = document.getElementById('ai-loading');
+            const errorMsg = document.getElementById('ai-error');
+
+            // Reset view
+            errorMsg.classList.add('hidden');
+            resultDiv.classList.add('hidden');
+            resultDiv.classList.remove('animate-fade-in-up');
+
+            if(!inputVal) {
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+
+            loadingDiv.classList.remove('hidden');
+
+            setTimeout(() => {
+                let foundItem = null;
+                // Kiritilgan so'zlar bo'yicha qidirish
+                for(let item of menuData) {
+                    if(item.keywords.some(kw => inputVal.includes(kw)) || item.name.toLowerCase().includes(inputVal)) {
+                        foundItem = item;
+                        break;
+                    }
+                }
+
+                // Agar topilmasa, pitsa yoki burger tasodifiy tanlanadi (ular asosiy menyu bo'lgani uchun)
+                if(!foundItem) {
+                    const popularItems = menuData.slice(0, 5); // Birinchi 5 ta asosiy fastfood
+                    foundItem = popularItems[Math.floor(Math.random() * popularItems.length)];
+                }
+
+                // DOM ni yangilash
+                document.getElementById('ai-img').src = foundItem.img;
+                document.getElementById('ai-title').innerText = foundItem.name;
+                document.getElementById('ai-price').innerText = foundItem.price;
+                
+                const aiMessage = `Siz so'ragan "${inputVal}" asosida bizning menyudan aynan <b>${foundItem.name}</b>ni tavsiya qilaman! <br><br> <i>Izoh: ${foundItem.desc}</i>`;
+                document.getElementById('ai-desc').innerHTML = aiMessage;
+
+                loadingDiv.classList.add('hidden');
+                resultDiv.classList.remove('hidden');
+                
+                // Animatsiyani qayta ishga tushirish
+                void resultDiv.offsetWidth; 
+                resultDiv.classList.add('animate-fade-in-up');
+                
+            }, 1500);
+        }
+
+        // Enter bosilganda qidirish
+        document.getElementById('ai-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                getAIRecommendation();
+            }
+        });
+    </script>
+</body>
+</html>
