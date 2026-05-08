@@ -341,106 +341,144 @@
         const menuData = [
             // Fast Food & Pizza
             {
-                id: 1, name: "Pizza", category: "fastfood", price: "45.000 so'mdan",
-                desc: "<b>O'lchamlari:</b> 26sm - 45.000, 33sm - 80.000, 40sm - 110.000, 45sm - 150.000, 50sm - 180.000.<br><b>Tarkibi:</b> Sous, danar go'shti, tovuq go'shti, qo'ziqorin, dudlangan kolbasa, pishirilgan kolbasa, mosarella pishlog'i.",
-                img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                id: 1, name: "Pizza", category: "fastfood", price: "50.000 so'mdan",
+                desc: "<b>O'lchamlari:</b> 26sm - 50.000, 33sm - 90.000, 40sm - 120.000, 45sm - 160.000, 50sm - 190.000.<br><b>Tarkibi:</b> Sous, danar go'shti, tovuq go'shti, qo'ziqorin, dudlangan kolbasa, pishirilgan kolbasa, mosarella pishlog'i.",
+                img: "../img/pizza.jpg",
                 keywords: ["pitsa", "pizza", "xamir", "kolbasa", "pishloq", "fast food"]
             },
             {
                 id: 2, name: "Lavash", category: "fastfood", price: "25.000 so'mdan",
                 desc: "<b>Tandir Lavash:</b> 35.000, 40.000, 45.000 <br><b>Tovuqli Lavash:</b> 25.000, 30.000",
-                img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                img: "../img/lavash_1.jpg",
                 keywords: ["lavash", "go'shtli", "tovuqli", "fast food", "shaurma", "o'ram"]
             },
             {
                 id: 3, name: "Danar", category: "fastfood", price: "25.000 so'mdan",
-                desc: "<b>Go'shtli Danar:</b> 35.000, 40.000, 45.000 <br><b>Tovuqli Danar:</b> 25.000, 30.000",
-                img: "https://images.unsplash.com/photo-1585238342024-78d387f4a707?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                desc: "<b>Go'shtli Danar:</b> 40.000, 45.000 <br><b>Tovuqli Danar:</b> 25.000, 30.000",
+                img: "../img/danar.jpg",
                 keywords: ["danar", "donar", "go'shtli", "tovuqli", "fast food"]
             },
             {
                 id: 4, name: "Xot Dog", category: "fastfood", price: "10.000 so'mdan",
                 desc: "<b>Narxlari:</b> 10.000, 15.000, 20.000 <br><b>Tarkibi:</b> Non, pomidorli sous, sabzi salat, pomidor, bodring, ketchup, mayonez, sosiska gril.",
-                img: "https://images.unsplash.com/photo-1619740455993-9e612b1af08a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                img: "../img/xot-dog.jpg",
                 keywords: ["xot dog", "hot dog", "sosiska", "fast food"]
             },
             {
                 id: 5, name: "Burger", category: "fastfood", price: "30.000 so'mdan",
                 desc: "<b>Gamburger:</b> 30.000 <br><b>Chizburger:</b> 35.000",
-                img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                img: "../img/chiken.jpg",
                 keywords: ["burger", "gamburger", "chizburger", "go'sht", "fast food"]
             },
             {
-                id: 6, name: "KFC", category: "fastfood", price: "85.000 so'm",
+                id: 6, name: "Burger", category: "fastfood", price: "30.000 so'mdan",
+                desc: "<b>Gamburger:</b> 30.000 <br><b>Chizburger:</b> 35.000",
+                img: "../img/burger.jpg",
+                keywords: ["burger", "gamburger", "chizburger", "go'sht", "fast food"]
+            },
+            {
+                id: 7, name: "KFC", category: "fastfood", price: "85.000 so'm",
                 desc: "<b>1 KG</b> - 85.000 so'm",
-                img: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                img: "../img/kfs.jpg",
                 keywords: ["kfc", "tovuq", "qarsildoq", "qovurilgan tovuq", "fast food"]
             },
             {
-                id: 7, name: "Fri", category: "fastfood", price: "15.000 so'm",
+                id: 8, name: "Fri", category: "fastfood", price: "15.000 so'm",
                 desc: "Mazali kartoshka fri - 15.000 so'm.",
-                img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                img: "../img/fri.jpg",
+                keywords: ["fri", "kartoshka", "fast food", "qarsildoq"]
+            },
+            {
+                id: 9, name: "Stripsi", category: "fastfood", price: "140.000 so'm",
+                desc: "<b>1 Kg</b> - 140.000 so'm",
+                img: "../img/stripsi.jpg",
                 keywords: ["fri", "kartoshka", "fast food", "qarsildoq"]
             },
             
             // Milliy va Mangal
             {
-                id: 8, name: "Shashlik", category: "milliy", price: "15.000 so'mdan",
+                id: 10, name: "Shashlik", category: "milliy", price: "15.000 so'mdan",
                 desc: "<b>Qiyma:</b> 22.000 <br><b>Kuskovoy:</b> 25.000 <br><b>Tovuqli:</b> 15.000",
-                img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                img: "../img/kuskavoy.jpg",
                 keywords: ["shashlik", "kabob", "qiyma", "kuskovoy", "go'sht", "tovuq shashlik", "mangal"]
             },
             {
-                id: 9, name: "Chupchima", category: "milliy", price: "55.000 so'm",
+                id: 11, name: "Chupchima", category: "milliy", price: "55.000 so'm",
                 desc: "<b>1 portsiya</b> - 55.000 so'm",
-                img: "https://images.unsplash.com/photo-1593504049359-74330189a345?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                img: "../img/chupchima.jpg",
                 keywords: ["chupchima", "go'sht", "milliy", "maxsus"]
             },
             {
-                id: 10, name: "Tovuq Oyoqchalari", category: "milliy", price: "65.000 so'm",
-                desc: "<b>1 KG</b> - 65.000 so'm",
-                img: "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                id: 12, name: "Tovuq Oyoqchalari", category: "milliy", price: "70.000 so'm",
+                desc: "<b>1 KG</b> - 70.000 so'm",
+                img: "../img/tovuq_ayoq.jpg",
                 keywords: ["tovuq", "oyoqcha", "pechda pishgan", "go'sht"]
             },
+            {
+                id: 13, name: "Tovuq mangal", category: "milliy", price: "70.000 so'm",
+                desc: "<b>1 KG</b> - 70.000 so'm",
+                img: "../img/tovuq_mangal.jpg",
+                keywords: ["tovuq", "oyoqcha", "pechda pishgan", "go'sht"]
+            },  
+            
 
             // Shirinliklar
             {
-                id: 11, name: "San Sebastiyan", category: "shirinlik", price: "35.000 so'm",
+                id: 14, name: "San Sebastiyan", category: "shirinlik", price: "35.000 so'm",
                 desc: "Haqiqiy Ispancha pishloqli tort. Og'izda eriydi.",
-                img: "https://images.unsplash.com/photo-1602351447937-745cb720612f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                img: "../img/san_sebastyan.jpg",
                 keywords: ["san sebastiyan", "tort", "shirinlik", "pishloq", "desert"]
             },
             {
-                id: 12, name: "Chizkeyk", category: "shirinlik", price: "27.000 so'm",
+                id: 15, name: "Chizkeyk", category: "shirinlik", price: "27.000 so'm",
                 desc: "Mevali va mazali klassik chizkeyk shirinligi.",
-                img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                img: "../img/chizkeyk.jpg",
                 keywords: ["chizkeyk", "shirinlik", "tort", "desert", "mevali"]
             },
             {
-                id: 13, name: "Muzqaymoq", category: "shirinlik", price: "10.000 so'mdan",
-                desc: "<b>Narxlari:</b> 10.000, 15.000 so'm",
-                img: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                id: 16, name: "Quyma", category: "shirinlik", price: "10.000 so'mdan",
+                desc: "<b>Narxlari:</b> 10.000, 15.000 so'm, 20.000 so'm",
+                img: "../img/quyma.jpg",
+                keywords: ["muzqaymoq", "shirinlik", "salqin", "muz", "morojnoe"]
+            },
+            {
+                id: 17, name: "Mevali", category: "shirinlik", price: "5.000 so'mdan",
+                desc: "<b>Donasi:</b> 5.000 so'm",
+                img: "../img/dona.jpg",
                 keywords: ["muzqaymoq", "shirinlik", "salqin", "muz", "morojnoe"]
             },
 
             // Ichimliklar
+             {
+                id: 18, name: "Chalop", category: "ichimlik", price: "25.000 so'mdan",
+                desc: "25.000 so'm",
+                img: "../img/chalop.jpg",
+                keywords: [ "ichimlik", "suv", "salqin"]
+            },
             {
-                id: 14, name: "Moxito", category: "ichimlik", price: "15.000 so'mdan",
-                desc: "<b>Moxito 0.5L:</b> 15.000 <br><b>Moxito 0.7L:</b> 20.000 <br> (malina, klubnika, kivi, tarxun, apelsin, moxito, moxito+klubnika, limon, mango, anor, tarvuz, shaftoli)",
-                img: "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                id: 19, name: "Moxito", category: "ichimlik", price: "20.000 so'mdan",
+                desc: "<b>Moxito 0.5L:</b> 20.000 <br><b>Moxito 0.7L:</b> 25.000 <br> (malina, klubnika, kivi, tarxun, apelsin, moxito, moxito+klubnika, limon, mango, anor, tarvuz, shaftoli)",
+                img: "../img/moxito.jpg",
                 keywords: ["moxito", "ichimlik", "suv", "salqin", "mevali", "tarxun"]
             },
             {
-                id: 15, name: "Sutli Kokteyl", category: "ichimlik", price: "10.000 so'mdan",
-                desc: "<b>Sutli kokteyl 0.5L:</b> 10.000 <br><b>Mevali va shokolad kokteyl</b> (kivi, apelsin, klubnika, malina, banan): 0.5L - 13.000, 0.7L - 15.000",
-                img: "https://images.unsplash.com/photo-1553177595-4de2bb0842b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                id: 20, name: "Buble tea", category: "ichimlik", price: "25.000 so'mdan",
+                desc: "25.000 so'm",
+                img: "../img/buble.jpg",
                 keywords: ["kokteyl", "sutli", "shokoladli", "ichimlik", "banan", "klubnika"]
             },
             {
-                id: 16, name: "Muz", category: "ichimlik", price: "5.000 so'm",
-                desc: "Ichimliklar uchun toza muz (5.000 so'm).",
-                img: "https://images.unsplash.com/photo-1556881286-fc6915169721?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                keywords: ["muz", "salqin"]
+                id: 21, name: "Ice tea(peach)", category: "ichimlik", price: "15.000 so'mdan",
+                desc: "0.5L - 15.000 <br>0.7L - 20.000 so'm",
+                img: "../img/ice_tea.jpg",
+                keywords: ["kokteyl", "sutli", "shokoladli", "ichimlik", "banan", "klubnika"]
+            },
+
+            {
+                id: 22, name: "Kokteyl", category: "ichimlik", price: "15.000 so'mdan",
+                desc: " (malina, klubnika, kivi, tarxun, apelsin, moxito, moxito+klubnika, limon, mango, anor, tarvuz, shaftoli) <br>0.5L - 15.000 <br>0.7L - 20.000 so'm <br> Ice coffee <br> 0.5L - 20.000 <br>0.7L - 25.000 so'm",
+                img: "../img/kokteyl.jpg",
+                keywords: ["kokteyl", "sutli", "shokoladli", "ichimlik", "banan", "klubnika"]
             }
         ];
 
@@ -467,7 +505,7 @@
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-2xl font-display font-bold text-gray-900 mb-2 uppercase tracking-wide">${item.name}</h3>
-                        <p class="text-gray-500 font-medium text-sm mb-6 flex-grow leading-relaxed">${item.desc}</p>
+                        <p class="text-red-500 font-bold text-sm mb-6 flex-grow leading-relaxed">${item.desc}</p>
                         <a href="#contact" class="w-full bg-gray-50 hover:bg-freshk hover:text-white text-gray-800 font-bold py-3 rounded-xl transition-colors text-center border border-gray-200 hover:border-freshk">
                             Buyurtma berish
                         </a>
